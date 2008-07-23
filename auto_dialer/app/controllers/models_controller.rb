@@ -1,4 +1,6 @@
 class ModelsController < ApplicationController
+  before_filter :login_required
+  
   # GET /Model
   # GET /Model.xml
   def index
