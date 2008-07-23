@@ -1,0 +1,17 @@
+%h1 Editing model
+
+= error_messages_for :model
+
+- form_for(@model) do |f|
+  %p
+    %b Test
+    = f.text_field :test 
+  %p
+    %b Test2
+    = f.text_field :test2 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', model_path(@model)
+= link_to 'Back', models_path
+

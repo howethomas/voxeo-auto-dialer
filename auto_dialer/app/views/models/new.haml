@@ -1,0 +1,18 @@
+%h1 New model
+
+= error_messages_for :model 
+
+- form_for(@model) do |f| 
+  %p
+    %b Test
+    %br
+    = f.text_field :test 
+  %p
+    %b Test2
+    %br
+    = f.text_field :test2 
+
+  %p
+    = f.submit "Create"
+    
+= link_to 'Back', models_path 
