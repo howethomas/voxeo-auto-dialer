@@ -9,11 +9,81 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 2) do
+ActiveRecord::Schema.define(:version => 9) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.integer  "primary_contact_id"
+    t.boolean  "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "applications", :force => true do |t|
+    t.string   "name"
+    t.string   "wait_wav"
+    t.string   "app_human"
+    t.string   "app_machine"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "cell"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "post_code"
+    t.string   "time_zone"
+    t.string   "account_id"
+    t.string   "tags"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.boolean  "enabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "histories", :force => true do |t|
+    t.integer  "schedule_id"
+    t.integer  "contact_id"
+    t.string   "result"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "models", :force => true do |t|
     t.string   "test"
     t.integer  "test2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schedules", :force => true do |t|
+    t.datetime "start"
+    t.integer  "account_id"
+    t.integer  "application_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "schedule_id"
+    t.integer  "application_id"
+    t.datetime "start"
+    t.boolean  "started"
+    t.boolean  "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -889,3 +889,76 @@ Processing ModelsController#index (for 127.0.0.1 at 2008-07-23 08:28:00) [GET]
   [4;35;1mModel Load (0.000165)[0m   [0mSELECT * FROM models [0m
 Rendering models/index
 Completed in 0.01669 (59 reqs/sec) | Rendering: 0.00379 (22%) | DB: 0.00047 (2%) | 200 OK [http://localhost/models]
+  [4;36;1mSQL (0.000231)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSQLite3::SQLException: table schema_info already exists: CREATE TABLE schema_info (version integer)[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSQLite3::SQLException: table schema_info already exists: CREATE TABLE schema_info (version integer)[0m
+  [4;35;1mSQL (0.000362)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000253)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000249)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateAccounts (3)
+  [4;36;1mSQL (0.002844)[0m   [0;1mCREATE TABLE accounts ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL, "primary_contact_id" integer DEFAULT NULL, "enabled" boolean DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;35;1mSQL (0.002006)[0m   [0mUPDATE schema_info SET version = 3[0m
+  [4;36;1mSQL (0.000337)[0m   [0;1mSELECT version FROM schema_info[0m
+Migrating to CreateContacts (4)
+  [4;35;1mSQL (0.002555)[0m   [0mCREATE TABLE contacts ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar(255) DEFAULT NULL, "last_name" varchar(255) DEFAULT NULL, "email" varchar(255) DEFAULT NULL, "phone" varchar(255) DEFAULT NULL, "cell" varchar(255) DEFAULT NULL, "address1" varchar(255) DEFAULT NULL, "address2" varchar(255) DEFAULT NULL, "city" varchar(255) DEFAULT NULL, "state" varchar(255) DEFAULT NULL, "country" varchar(255) DEFAULT NULL, "post_code" varchar(255) DEFAULT NULL, "time_zone" varchar(255) DEFAULT NULL, "account_id" varchar(255) DEFAULT NULL, "tags" varchar(255) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;36;1mSQL (0.001444)[0m   [0;1mUPDATE schema_info SET version = 4[0m
+  [4;35;1mSQL (0.000388)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateApplications (5)
+  [4;36;1mSQL (0.002994)[0m   [0;1mCREATE TABLE applications ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL, "wait_wav" varchar(255) DEFAULT NULL, "app_human" varchar(255) DEFAULT NULL, "app_machine" varchar(255) DEFAULT NULL, "account_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;35;1mSQL (0.001916)[0m   [0mUPDATE schema_info SET version = 5[0m
+  [4;36;1mSQL (0.000354)[0m   [0;1mSELECT version FROM schema_info[0m
+Migrating to CreateSchedules (6)
+  [4;35;1mSQL (0.002621)[0m   [0mCREATE TABLE schedules ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "start" datetime DEFAULT NULL, "account_id" integer DEFAULT NULL, "application_id" integer DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;36;1mSQL (0.002553)[0m   [0;1mUPDATE schema_info SET version = 6[0m
+  [4;35;1mSQL (0.000470)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateTasks (7)
+  [4;36;1mSQL (0.004608)[0m   [0;1mCREATE TABLE tasks ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "schedule_id" integer DEFAULT NULL, "application_id" integer DEFAULT NULL, "start" datetime DEFAULT NULL, "started" boolean DEFAULT NULL, "completed" boolean DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;35;1mSQL (0.001797)[0m   [0mUPDATE schema_info SET version = 7[0m
+  [4;36;1mSQL (0.000243)[0m   [0;1mSELECT version FROM schema_info[0m
+Migrating to CreateGroups (8)
+  [4;35;1mSQL (0.002183)[0m   [0mCREATE TABLE groups ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) DEFAULT NULL, "enabled" boolean DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;36;1mSQL (0.001869)[0m   [0;1mUPDATE schema_info SET version = 8[0m
+  [4;35;1mSQL (0.000350)[0m   [0mSELECT version FROM schema_info[0m
+Migrating to CreateHistories (9)
+  [4;36;1mSQL (0.002375)[0m   [0;1mCREATE TABLE histories ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "schedule_id" integer DEFAULT NULL, "contact_id" integer DEFAULT NULL, "result" varchar(255) DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL) [0m
+  [4;35;1mSQL (0.001646)[0m   [0mUPDATE schema_info SET version = 9[0m
+  [4;36;1mSQL (0.000341)[0m   [0;1mSELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.000845)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000096)[0m   [0;1mPRAGMA index_list(accounts)[0m
+  [4;35;1mSQL (0.000089)[0m   [0mPRAGMA index_list(applications)[0m
+  [4;36;1mSQL (0.000088)[0m   [0;1mPRAGMA index_list(contacts)[0m
+  [4;35;1mSQL (0.000078)[0m   [0mPRAGMA index_list(groups)[0m
+  [4;36;1mSQL (0.000079)[0m   [0;1mPRAGMA index_list(histories)[0m
+  [4;35;1mSQL (0.000080)[0m   [0mPRAGMA index_list(models)[0m
+  [4;36;1mSQL (0.000078)[0m   [0;1mPRAGMA index_list(schedules)[0m
+  [4;35;1mSQL (0.000196)[0m   [0mPRAGMA index_list(tasks)[0m
+  [4;36;1mSQL (0.000063)[0m   [0;1mPRAGMA index_list(users)[0m
+  [4;36;1mSQL (0.000189)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSQLite3::SQLException: table schema_info already exists: CREATE TABLE schema_info (version integer)[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSQLite3::SQLException: table schema_info already exists: CREATE TABLE schema_info (version integer)[0m
+  [4;35;1mSQL (0.000225)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000166)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000162)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000160)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000160)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000160)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000159)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000160)[0m   [0;1mSELECT version FROM schema_info[0m
+  [4;35;1mSQL (0.000179)[0m   [0mSELECT version FROM schema_info[0m
+  [4;36;1mSQL (0.000184)[0m   [0;1mSELECT * FROM schema_info[0m
+  [4;35;1mSQL (0.000562)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000060)[0m   [0;1mPRAGMA index_list(accounts)[0m
+  [4;35;1mSQL (0.000057)[0m   [0mPRAGMA index_list(applications)[0m
+  [4;36;1mSQL (0.000057)[0m   [0;1mPRAGMA index_list(contacts)[0m
+  [4;35;1mSQL (0.000056)[0m   [0mPRAGMA index_list(groups)[0m
+  [4;36;1mSQL (0.000056)[0m   [0;1mPRAGMA index_list(histories)[0m
+  [4;35;1mSQL (0.000056)[0m   [0mPRAGMA index_list(models)[0m
+  [4;36;1mSQL (0.000055)[0m   [0;1mPRAGMA index_list(schedules)[0m
+  [4;35;1mSQL (0.000064)[0m   [0mPRAGMA index_list(tasks)[0m
+  [4;36;1mSQL (0.000057)[0m   [0;1mPRAGMA index_list(users)[0m

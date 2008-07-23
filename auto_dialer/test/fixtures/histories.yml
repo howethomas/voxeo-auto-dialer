@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  schedule_id: 1
+  contact_id: 1
+  result: MyString
+
+two:
+  schedule_id: 1
+  contact_id: 1
+  result: MyString
