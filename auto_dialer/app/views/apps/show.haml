@@ -1,0 +1,19 @@
+%p
+  %b Name:
+  =h @app.name 
+
+%p
+  %b Wait wav:
+  =h @app.wait_wav 
+
+%p
+  %b App human:
+  =h @app.app_human 
+
+%p
+  %b App machine:
+  =h @app.app_machine 
+
+
+= link_to 'Edit', edit_app_path(@app)
+= link_to 'Back', apps_path

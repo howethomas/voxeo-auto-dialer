@@ -1,14 +1,16 @@
-<% form_tag session_path do -%>
+<%= error_messages_for :sessions %>
+<% form_for :sessions, :url => sessions_path do |f| -%>
 <p><label for="login">Login</label><br/>
-<%= text_field_tag 'login' %></p>
+<%= f.text_field :login %></p>
+
+<p><label for="email">Email</label><br/>
+<%= f.text_field :email %></p>
 
 <p><label for="password">Password</label><br/>
-<%= password_field_tag 'password' %></p>
+<%= f.password_field :password %></p>
 
-<!-- Uncomment this if you want this functionality
-<p><label for="remember_me">Remember me:</label>
-<%= check_box_tag 'remember_me' %></p>
--->
+<p><label for="password_confirmation">Confirm Password</label><br/>
+<%= f.password_field :password_confirmation %></p>
 
-<p><%= submit_tag 'Log in' %></p>
+<p><%= submit_tag 'Sign up' %></p>
 <% end -%>

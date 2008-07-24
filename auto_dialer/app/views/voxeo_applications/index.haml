@@ -1,0 +1,21 @@
+%h1 Listing applications
+
+%table
+  %tr
+    %th Name
+    %th Wait wav
+    %th App human
+    %th App machine
+
+- for application in @applications
+  %tr
+    %td=h application.name
+    %td=h application.wait_wav
+    %td=h application.app_human
+    %td=h application.app_machine
+  
+        %td= link_to 'Show', application_path(application)
+        %td= link_to 'Edit', edit_application_path(application)
+        %td= link_to 'Destroy', application_path(application), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+
+    = link_to 'New application', new_application_path

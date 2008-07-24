@@ -1,0 +1,17 @@
+%h1 Listing groups
+
+%table
+  %tr
+    %th Name
+    %th Enabled
+
+- for group in @groups
+  %tr
+    %td=h group.name
+    %td=h group.enabled
+  
+    %td= link_to 'Show', group_path(group)
+    %td= link_to 'Edit', edit_group_path(group)
+    %td= link_to 'Destroy', group_path(group), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+    
+= link_to 'New group', new_group_path 

@@ -1,0 +1,28 @@
+/* @override http://localhost:3000/stylesheets/ad.css?1216838764 */
+
+a {
+	font: "Lucida Grande", Lucida, Verdana, sans-serif;
+	font-size: 18px;
+}
+
+tr {
+	border: 1px solid gray;
+}
+
+tbody {
+	border: 1px solid gray;
+}
+
+td {
+	text-align: center;
+}
+
+th {
+	font: 16px "Lucida Grande", Lucida, Verdana, sans-serif;
+	border: 2px solid gray;
+	width: 100px;
+}
+
+body {
+	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
+}

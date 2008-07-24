@@ -1,0 +1,3 @@
+module HistoriesHelper
+  
+end

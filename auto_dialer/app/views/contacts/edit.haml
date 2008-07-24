@@ -1,0 +1,47 @@
+%h1 Editing contact
+
+= error_messages_for :contact
+
+- form_for(@contact) do |f|
+  %p
+    %b First name
+    = f.text_field :first_name 
+  %p
+    %b Last name
+    = f.text_field :last_name 
+  %p
+    %b Email
+    = f.text_field :email 
+  %p
+    %b Phone
+    = f.text_field :phone 
+  %p
+    %b Cell
+    = f.text_field :cell 
+  %p
+    %b Address1
+    = f.text_field :address1 
+  %p
+    %b Address2
+    = f.text_field :address2 
+  %p
+    %b City
+    = f.text_field :city 
+  %p
+    %b State
+    = f.text_field :state 
+  %p
+    %b Country
+    = f.text_field :country 
+  %p
+    %b Post code
+    = f.text_field :post_code 
+  %p
+    %b Time zone
+    = f.text_field :time_zone 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', contact_path(@contact)
+= link_to 'Back', contacts_path
+

@@ -1,0 +1,44 @@
+%h2 Contacts
+
+%table
+  %tr
+    %th First name
+    %th Last name
+    %th Email
+    %th Phone
+    %th Cell
+    %th Address1
+    %th Address2
+    %th City
+    %th State
+    %th Country
+    %th Post code
+    %th Time zone
+
+  - for contact in @contacts
+    %tr
+      %td=h contact.first_name
+      %td=h contact.last_name
+      %td=h contact.email
+      %td=h contact.phone
+      %td=h contact.cell
+      %td=h contact.address1
+      %td=h contact.address2
+      %td=h contact.city
+      %td=h contact.state
+      %td=h contact.country
+      %td=h contact.post_code
+      %td=h contact.time_zone
+  
+      %td= link_to 'Show', contact_path(contact)
+      %td= link_to 'Edit', edit_contact_path(contact)
+      %td= link_to 'Destroy', contact_path(contact), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+= link_to 'New contact', new_contact_path 
+= link_to 'Download contacts', :action => "download"  
+
+%a{:href => '#', :onclick=> "new Effect.Appear('file-upload-form')"} Upload
+%span#file-upload-form{:style => 'display: none'}
+  - form_tag('/upload'  , :multipart => true)  
+  = file_field_tag :filename 
+  = submit_tag "Upload"
+      

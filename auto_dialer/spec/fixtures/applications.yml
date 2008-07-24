@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  wait_wav: MyString
+  app_human: MyString
+  app_machine: MyString
+
+two:
+  name: MyString
+  wait_wav: MyString
+  app_human: MyString
+  app_machine: MyString

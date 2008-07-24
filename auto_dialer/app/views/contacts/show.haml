@@ -1,0 +1,51 @@
+%p
+  %b First name:
+  =h @contact.first_name 
+
+%p
+  %b Last name:
+  =h @contact.last_name 
+
+%p
+  %b Email:
+  =h @contact.email 
+
+%p
+  %b Phone:
+  =h @contact.phone 
+
+%p
+  %b Cell:
+  =h @contact.cell 
+
+%p
+  %b Address1:
+  =h @contact.address1 
+
+%p
+  %b Address2:
+  =h @contact.address2 
+
+%p
+  %b City:
+  =h @contact.city 
+
+%p
+  %b State:
+  =h @contact.state 
+
+%p
+  %b Country:
+  =h @contact.country 
+
+%p
+  %b Post code:
+  =h @contact.post_code 
+
+%p
+  %b Time zone:
+  =h @contact.time_zone 
+
+
+= link_to 'Edit', edit_contact_path(@contact)
+= link_to 'Back', contacts_path

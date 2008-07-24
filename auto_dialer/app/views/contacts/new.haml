@@ -1,0 +1,58 @@
+%h1 New contact
+
+= error_messages_for :contact 
+
+- form_for(@contact) do |f| 
+  %p
+    %b First name
+    %br
+    = f.text_field :first_name 
+  %p
+    %b Last name
+    %br
+    = f.text_field :last_name 
+  %p
+    %b Email
+    %br
+    = f.text_field :email 
+  %p
+    %b Phone
+    %br
+    = f.text_field :phone 
+  %p
+    %b Cell
+    %br
+    = f.text_field :cell 
+  %p
+    %b Address1
+    %br
+    = f.text_field :address1 
+  %p
+    %b Address2
+    %br
+    = f.text_field :address2 
+  %p
+    %b City
+    %br
+    = f.text_field :city 
+  %p
+    %b State
+    %br
+    = f.text_field :state 
+  %p
+    %b Country
+    %br
+    = f.text_field :country 
+  %p
+    %b Post code
+    %br
+    = f.text_field :post_code 
+  %p
+    %b Time zone
+    %br
+    = f.text_field :time_zone 
+
+  %p
+    = f.submit "Create"
+    
+= link_to 'Back', contacts_path 

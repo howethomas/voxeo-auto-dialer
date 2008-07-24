@@ -1,0 +1,14 @@
+%h1 Editing history
+
+= error_messages_for :history
+
+- form_for(@history) do |f|
+  %p
+    %b Result
+    = f.text_field :result 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', history_path(@history)
+= link_to 'Back', histories_path
+

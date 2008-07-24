@@ -1,0 +1,14 @@
+%h1 Editing schedule
+
+= error_messages_for :schedule
+
+- form_for(@schedule) do |f|
+  %p
+    %b Start
+    = f.datetime_select :start 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', schedule_path(@schedule)
+= link_to 'Back', schedules_path
+

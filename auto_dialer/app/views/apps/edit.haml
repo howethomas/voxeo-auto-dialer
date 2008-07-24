@@ -1,0 +1,23 @@
+%h1 Editing app
+
+= error_messages_for :app
+
+- form_for(@app) do |f|
+  %p
+    %b Name
+    = f.text_field :name 
+  %p
+    %b Wait wav
+    = f.text_field :wait_wav 
+  %p
+    %b App human
+    = f.text_field :app_human 
+  %p
+    %b App machine
+    = f.text_field :app_machine 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', app_path(@app)
+= link_to 'Back', apps_path
+

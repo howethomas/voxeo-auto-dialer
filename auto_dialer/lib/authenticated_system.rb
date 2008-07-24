@@ -1,34 +1,34 @@
 module AuthenticatedSystem
   protected
-    # Returns true or false if the user is logged in.
-    # Preloads @current_user with the user model if they're logged in.
+    # Returns true or false if the sessions is logged in.
+    # Preloads @current_sessions with the sessions model if they're logged in.
     def logged_in?
-      !!current_user
+      !!current_sessions
     end
 
-    # Accesses the current user from the session. 
+    # Accesses the current sessions from the session. 
     # Future calls avoid the database because nil is not equal to false.
-    def current_user
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_user == false
+    def current_sessions
+      @current_sessions ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_sessions == false
     end
 
-    # Store the given user id in the session.
-    def current_user=(new_user)
-      session[:user_id] = new_user ? new_user.id : nil
-      @current_user = new_user || false
+    # Store the given sessions id in the session.
+    def current_sessions=(new_sessions)
+      session[:sessions_id] = new_sessions ? new_sessions.id : nil
+      @current_sessions = new_sessions || false
     end
 
-    # Check if the user is authorized
+    # Check if the sessions is authorized
     #
     # Override this method in your controllers if you want to restrict access
-    # to only a few actions or if you want to check if the user
+    # to only a few actions or if you want to check if the sessions
     # has the correct rights.
     #
     # Example:
     #
     #  # only allow nonbobs
     #  def authorized?
-    #    current_user.login != "bob"
+    #    current_sessions.login != "bob"
     #  end
     def authorized?
       logged_in?
@@ -57,7 +57,7 @@ module AuthenticatedSystem
     # The default action is to redirect to the login screen.
     #
     # Override this method in your controllers if you want to have special
-    # behavior in case the user is not authorized
+    # behavior in case the sessions is not authorized
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
@@ -86,30 +86,30 @@ module AuthenticatedSystem
       session[:return_to] = nil
     end
 
-    # Inclusion hook to make #current_user and #logged_in?
+    # Inclusion hook to make #current_sessions and #logged_in?
     # available as ActionView helper methods.
     def self.included(base)
-      base.send :helper_method, :current_user, :logged_in?
+      base.send :helper_method, :current_sessions, :logged_in?
     end
 
-    # Called from #current_user.  First attempt to login by the user id stored in the session.
+    # Called from #current_sessions.  First attempt to login by the sessions id stored in the session.
     def login_from_session
-      self.current_user = User.find_by_id(session[:user_id]) if session[:user_id]
+      self.current_sessions = Sessions.find_by_id(session[:sessions_id]) if session[:sessions_id]
     end
 
-    # Called from #current_user.  Now, attempt to login by basic authentication information.
+    # Called from #current_sessions.  Now, attempt to login by basic authentication information.
     def login_from_basic_auth
       authenticate_with_http_basic do |username, password|
-        self.current_user = User.authenticate(username, password)
+        self.current_sessions = Sessions.authenticate(username, password)
       end
     end
 
-    # Called from #current_user.  Finaly, attempt to login by an expiring token in the cookie.
+    # Called from #current_sessions.  Finaly, attempt to login by an expiring token in the cookie.
     def login_from_cookie
-      user = cookies[:auth_token] && User.find_by_remember_token(cookies[:auth_token])
-      if user && user.remember_token?
-        cookies[:auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
-        self.current_user = user
+      sessions = cookies[:auth_token] && Sessions.find_by_remember_token(cookies[:auth_token])
+      if sessions && sessions.remember_token?
+        cookies[:auth_token] = { :value => sessions.remember_token, :expires => sessions.remember_token_expires_at }
+        self.current_sessions = sessions
       end
     end
 end

@@ -1,0 +1,17 @@
+%h1 Editing account
+
+= error_messages_for :account
+
+- form_for(@account) do |f|
+  %p
+    %b Name
+    = f.text_field :name 
+  %p
+    %b Enabled
+    = f.check_box :enabled 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', account_path(@account)
+= link_to 'Back', accounts_path
+

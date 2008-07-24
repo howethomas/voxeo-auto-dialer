@@ -1,0 +1,17 @@
+%h1 Editing group
+
+= error_messages_for :group
+
+- form_for(@group) do |f|
+  %p
+    %b Name
+    = f.text_field :name 
+  %p
+    %b Enabled
+    = f.check_box :enabled 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', group_path(@group)
+= link_to 'Back', groups_path
+

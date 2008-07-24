@@ -5,70 +5,55 @@ require File.dirname(__FILE__) + '/../spec_helper'
 include AuthenticatedTestHelper
 
 describe SessionsController do
-  fixtures :users
+  fixtures :sessions
 
-  it 'logins and redirects' do
-    post :create, :login => 'quentin', :password => 'test'
-    session[:user_id].should_not be_nil
-    response.should be_redirect
+  it 'allows signup' do
+    lambda do
+      create_sessions
+      response.should be_redirect
+    end.should change(Sessions, :count).by(1)
+  end
+
+  
+
+  
+
+  it 'requires login on signup' do
+    lambda do
+      create_sessions(:login => nil)
+      assigns[:sessions].errors.on(:login).should_not be_nil
+      response.should be_success
+    end.should_not change(Sessions, :count)
   end
   
-  it 'fails login and does not redirect' do
-    post :create, :login => 'quentin', :password => 'bad password'
-    session[:user_id].should be_nil
-    response.should be_success
-  end
-
-  it 'logs out' do
-    login_as :quentin
-    get :destroy
-    session[:user_id].should be_nil
-    response.should be_redirect
-  end
-
-  it 'remembers me' do
-    post :create, :login => 'quentin', :password => 'test', :remember_me => "1"
-    response.cookies["auth_token"].should_not be_nil
+  it 'requires password on signup' do
+    lambda do
+      create_sessions(:password => nil)
+      assigns[:sessions].errors.on(:password).should_not be_nil
+      response.should be_success
+    end.should_not change(Sessions, :count)
   end
   
-  it 'does not remember me' do
-    post :create, :login => 'quentin', :password => 'test', :remember_me => "0"
-    response.cookies["auth_token"].should be_nil
+  it 'requires password confirmation on signup' do
+    lambda do
+      create_sessions(:password_confirmation => nil)
+      assigns[:sessions].errors.on(:password_confirmation).should_not be_nil
+      response.should be_success
+    end.should_not change(Sessions, :count)
   end
 
-  it 'deletes token on logout' do
-    login_as :quentin
-    get :destroy
-    response.cookies["auth_token"].should == []
-  end
-
-  it 'logs in with cookie' do
-    users(:quentin).remember_me
-    request.cookies["auth_token"] = cookie_for(:quentin)
-    get :new
-    controller.send(:logged_in?).should be_true
+  it 'requires email on signup' do
+    lambda do
+      create_sessions(:email => nil)
+      assigns[:sessions].errors.on(:email).should_not be_nil
+      response.should be_success
+    end.should_not change(Sessions, :count)
   end
   
-  it 'fails expired cookie login' do
-    users(:quentin).remember_me
-    users(:quentin).update_attribute :remember_token_expires_at, 5.minutes.ago
-    request.cookies["auth_token"] = cookie_for(:quentin)
-    get :new
-    controller.send(:logged_in?).should_not be_true
-  end
   
-  it 'fails cookie login' do
-    users(:quentin).remember_me
-    request.cookies["auth_token"] = auth_token('invalid_auth_token')
-    get :new
-    controller.send(:logged_in?).should_not be_true
-  end
-
-  def auth_token(token)
-    CGI::Cookie.new('name' => 'auth_token', 'value' => token)
-  end
-    
-  def cookie_for(user)
-    auth_token users(user).remember_token
+  
+  def create_sessions(options = {})
+    post :create, :sessions => { :login => 'quire', :email => 'quire@example.com',
+      :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 end

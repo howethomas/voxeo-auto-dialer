@@ -1,0 +1,15 @@
+%h1 Listing histories
+
+%table
+  %tr
+    %th Result
+
+- for history in @histories
+  %tr
+    %td=h history.result
+  
+    %td= link_to 'Show', history_path(history)
+    %td= link_to 'Edit', edit_history_path(history)
+    %td= link_to 'Destroy', history_path(history), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+    
+= link_to 'New history', new_history_path 

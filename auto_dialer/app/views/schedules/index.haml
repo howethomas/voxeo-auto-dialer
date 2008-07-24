@@ -1,0 +1,15 @@
+%h1 Listing schedules
+
+%table
+  %tr
+    %th Start
+
+- for schedule in @schedules
+  %tr
+    %td=h schedule.start
+  
+    %td= link_to 'Show', schedule_path(schedule)
+    %td= link_to 'Edit', edit_schedule_path(schedule)
+    %td= link_to 'Destroy', schedule_path(schedule), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+    
+= link_to 'New schedule', new_schedule_path 

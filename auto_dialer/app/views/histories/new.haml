@@ -1,0 +1,14 @@
+%h1 New history
+
+= error_messages_for :history 
+
+- form_for(@history) do |f| 
+  %p
+    %b Result
+    %br
+    = f.text_field :result 
+
+  %p
+    = f.submit "Create"
+    
+= link_to 'Back', histories_path 

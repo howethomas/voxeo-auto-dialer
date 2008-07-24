@@ -1,0 +1,14 @@
+%h1 New schedule
+
+= error_messages_for :schedule 
+
+- form_for(@schedule) do |f| 
+  %p
+    %b Start
+    %br
+    = f.datetime_select :start 
+
+  %p
+    = f.submit "Create"
+    
+= link_to 'Back', schedules_path 

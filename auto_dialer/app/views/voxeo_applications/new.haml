@@ -1,0 +1,26 @@
+%h1 New application
+
+= error_messages_for :application 
+
+- form_for(@application) do |f| 
+  %p
+    %b Name
+    %br
+    = f.text_field :name 
+  %p
+    %b Wait wav
+    %br
+    = f.text_field :wait_wav 
+  %p
+    %b App human
+    %br
+    = f.text_field :app_human 
+  %p
+    %b App machine
+    %br
+    = f.text_field :app_machine 
+
+  %p
+    = f.submit "Create"
+    
+= link_to 'Back', applications_path 
