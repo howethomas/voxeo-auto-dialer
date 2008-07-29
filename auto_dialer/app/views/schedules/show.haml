@@ -1,6 +1,12 @@
 %p
-  %b Start:
-  =h @schedule.start 
+  %b Start Time:
+  =h "#{@schedule.start} (#{distance_of_time_in_words(Time.now, @schedule.start)})"
+%p
+  %b Tags:
+  =h @schedule.tags 
+%p
+  %b Application:
+  =h @schedule.app.name
 
 
 = link_to 'Edit', edit_schedule_path(@schedule)

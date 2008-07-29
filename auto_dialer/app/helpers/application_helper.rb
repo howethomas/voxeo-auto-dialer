@@ -6,7 +6,7 @@ module ApplicationHelper
   end
   
   def logout
-    link_to "Logout", :controller => "welcome", :action => "logout"
+    link_to "Logout", :controller => "sessions", :action => "destroy"
   end
   def dashboard
     link_to "Dashboard", :controller => "dashboard", :action => "index" 

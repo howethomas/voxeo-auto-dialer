@@ -1,15 +1,24 @@
-%h1 Listing schedules
+%h1 Upcoming Calls
 
 %table
   %tr
-    %th Start
-
-- for schedule in @schedules
-  %tr
-    %td=h schedule.start
-  
-    %td= link_to 'Show', schedule_path(schedule)
-    %td= link_to 'Edit', edit_schedule_path(schedule)
-    %td= link_to 'Destroy', schedule_path(schedule), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+    %th Start Time
+    %th Sent To (tags)
+    %th Application
+    %th State
+  - for schedule in @schedules
+    %tr
+      %td=h "#{schedule.start} (#{distance_of_time_in_words(Time.now, schedule.start)})"
+      %td
+        - if schedule.tags.nil?
+          = link_to "Sent to all contacts", :controller=>:contacts, :action=>:index 
+        - else
+          - for tag in schedule.tags.split 
+            = link_to tag, :controller=>:contacts, :action=>:filter, :id=>tag 
+      %td=h schedule.app.name
+      %td=h schedule.state 
+      %td= link_to 'Show', schedule_path(schedule)
+      %td= link_to 'Edit', edit_schedule_path(schedule)
+      %td= link_to 'Destroy', schedule_path(schedule), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
     
 = link_to 'New schedule', new_schedule_path 

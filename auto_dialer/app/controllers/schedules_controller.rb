@@ -1,9 +1,14 @@
+require "chronic"
+
 class SchedulesController < ApplicationController
+  before_filter :login_required
+
   # GET /schedule
   # GET /schedule.xml
   def index
     @schedules = Schedule.find(:all)
-
+    @apps = App.find(:all)
+    
     respond_to do |format|
       format.html # index.haml
       format.xml  { render :xml => @schedules }
@@ -25,7 +30,8 @@ class SchedulesController < ApplicationController
   # GET /schedule/new.xml
   def new
     @schedule = Schedule.new
-
+    @apps = App.find(:all)
+    
     respond_to do |format|
       format.html # new.haml
       format.xml  { render :xml => @schedule }
@@ -35,13 +41,16 @@ class SchedulesController < ApplicationController
   # GET /schedule/1/edit
   def edit
     @schedule = Schedule.find(params[:id])
+    @apps = App.find(:all)
   end
 
   # POST /schedule
   # POST /schedule.xml
   def create
     @schedule = Schedule.new(params[:schedule])
-
+    @schedule.start = Chronic.parse(params[:schedule][:start])
+    @schedule.app_id = params[:schedule][:app_id]
+    
     respond_to do |format|
       if @schedule.save
         flash[:notice] = 'Schedule was successfully created.'

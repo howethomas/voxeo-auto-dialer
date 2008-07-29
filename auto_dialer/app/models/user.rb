@@ -1,8 +1,5 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  belongs_to :account
-  has_one :contact
-  
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -20,6 +17,17 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
+  def validate
+    if account_id.nil?
+      begin
+        default_account = Account.find_by_name("default")
+        account_id = default_account.id
+      rescue Exception => e
+        
+      end
+    end
+  end
+  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt

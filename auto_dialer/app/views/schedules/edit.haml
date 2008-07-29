@@ -5,8 +5,13 @@
 - form_for(@schedule) do |f|
   %p
     %b Start
-    = f.datetime_select :start 
-    
+    = f.datetime_select :start
+  %p 
+    %b Tags
+    = f.text_field :tags 
+  %p 
+    %b App
+    = f.collection_select('app_id', @apps, :id, :name)
   %p= f.submit "Update"
   
 = link_to 'Show', schedule_path(@schedule)

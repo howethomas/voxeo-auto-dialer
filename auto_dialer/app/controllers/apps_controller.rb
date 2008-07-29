@@ -1,8 +1,10 @@
 class AppsController < ApplicationController
+  before_filter :login_required
+
   # GET /app
   # GET /app.xml
   def index
-    @apps = App.find(:all)
+    @apps = App.paginate :page => params[:page], :per_page => 25 
 
     respond_to do |format|
       format.html # index.haml

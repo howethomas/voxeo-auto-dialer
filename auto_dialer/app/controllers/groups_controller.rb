@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_filter :login_required
+ 
   # GET /group
   # GET /group.xml
   def index

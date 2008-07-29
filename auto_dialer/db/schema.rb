@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080723192355) do
+ActiveRecord::Schema.define(:version => 20080729170955) do
 
   create_table "Apps", :force => true do |t|
     t.string   "name"
@@ -19,12 +19,11 @@ ActiveRecord::Schema.define(:version => 20080723192355) do
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "calls_per_minute"
   end
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
-    t.integer  "primary_contact_id"
-    t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,11 +47,26 @@ ActiveRecord::Schema.define(:version => 20080723192355) do
     t.datetime "updated_at"
   end
 
+  create_table "contacts_groups", :id => false, :force => true do |t|
+    t.integer "contact_id", :null => false
+    t.integer "group_id",   :null => false
+  end
+
+  create_table "contacts_schedules", :id => false, :force => true do |t|
+    t.integer "contact_id",  :null => false
+    t.integer "schedule_id", :null => false
+  end
+
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "groups_schedules", :id => false, :force => true do |t|
+    t.integer "group_id",    :null => false
+    t.integer "schedule_id", :null => false
   end
 
   create_table "histories", :force => true do |t|
@@ -70,23 +84,19 @@ ActiveRecord::Schema.define(:version => 20080723192355) do
     t.datetime "updated_at"
   end
 
+  create_table "runners", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "schedules", :force => true do |t|
     t.datetime "start"
     t.integer  "account_id"
     t.integer  "app_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "login"
-    t.string   "email"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
+    t.string   "tags"
+    t.string   "state"
   end
 
   create_table "tasks", :force => true do |t|
@@ -108,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20080723192355) do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
+    t.integer  "account_id",                              :default => 0
   end
 
 end

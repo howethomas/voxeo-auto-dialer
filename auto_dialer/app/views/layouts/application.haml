@@ -8,18 +8,24 @@
     = javascript_include_tag :defaults    
   %body
   
-    %h1= link_to "AutoDialer", root_url
+    %h1= link_to "AutoDialer", root_url if logged_in?
     #container{:style => @full_size_container ? "width: 96%; background-color: white" : ''}
       %p.flash-notice{:style => "color: green"}= flash[:notice]
       %p.flash-error{ :style => "color: red"  }= flash[:error]
-      %menu_bar= link_to 'Dashboard', :controller => "dashboard", :action => "index"   
-      %menu_bar= link_to 'Contacts', :controller => "contacts", :action => "index"   
-      %menu_bar= link_to 'Applications', :controller => "apps", :action => "index"   
-      %menu_bar= link_to 'Schedules', :controller => "schedules", :action => "index"   
-      %menu_bar= link_to 'History', :controller => "histories", :action => "index"   
-      %menu_bar= link_to 'Help', :controller => "help", :action => "index"   
+      - if logged_in?
+        #menu_box
+          %menu_bar= link_to 'Dashboard', :controller => "dashboard", :action => "index"   
+          %menu_bar= link_to 'Contacts', :controller => "contacts", :action => "index"   
+          %menu_bar= link_to 'Applications', :controller => "apps", :action => "index"   
+          %menu_bar= link_to 'Schedule', :controller => "schedules", :action => "index"   
+          %menu_bar= link_to 'History', :controller => "histories", :action => "index"   
+          %menu_bar= link_to 'Help', :controller => "help", :action => "index"   
       = yield
-      %br/
+      %br/    
+      %br/    
+      %br/    
+      %br/    
+      
       
   .footer
     %span.powered-by
@@ -32,4 +38,6 @@
       | 
       %span.logout= logout
       |
-      %a{:href => root_url} Home 
+      %a{:href => root_url} Home
+      |
+      %small_text= "logged in as #{current_user.login}" unless current_user.nil?

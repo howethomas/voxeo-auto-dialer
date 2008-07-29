@@ -1,4 +1,6 @@
 class HistoriesController < ApplicationController
+  before_filter :login_required
+
   # GET /history
   # GET /history.xml
   def index
