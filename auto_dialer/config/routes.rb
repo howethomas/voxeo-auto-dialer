@@ -15,7 +15,9 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.export_contacts '/export_contacts', :controller => "contacts", :action => "export"
-  map.import_contacts '/import_contacts', :controller => "contacts", :action => "import" 
+  map.import_contacts '/import_contacts', :controller => "contacts", :action => "import"
+  map.delete_history '/delete_history', :controller => "histories", :action => "delete_history"
+   
   map.root :controller => "dashboard"
 
   # The priority is based upon order of creation: first created -> highest priority.

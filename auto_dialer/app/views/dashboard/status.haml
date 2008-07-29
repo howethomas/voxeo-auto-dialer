@@ -1,0 +1,16 @@
+%h1 Current Dialer Status
+%p= Time.zone.now
+%p
+  %strong Calls made in the past 5 minutes :
+  = History.count_calls_since(5.minutes)
+  %br
+  %strong Calls made in the past 15 minutes :
+  = History.count_calls_since(15.minutes)
+  %br
+  %strong Calls made in the past 60 minutes :
+  = History.count_calls_since(60.minutes)
+  %br
+  %strong Calls made in the past 24 hours :
+  = History.count_calls_since(24.hours)
+  %br
+

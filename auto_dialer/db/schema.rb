@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080729170955) do
+ActiveRecord::Schema.define(:version => 20080729185137) do
 
   create_table "Apps", :force => true do |t|
     t.string   "name"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20080729170955) do
     t.boolean  "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "contact_id"
   end
 
   create_table "users", :force => true do |t|
@@ -119,6 +120,11 @@ ActiveRecord::Schema.define(:version => 20080729170955) do
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
     t.integer  "account_id",                              :default => 0
+  end
+
+  create_table "utilities", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

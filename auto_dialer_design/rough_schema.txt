@@ -1,0 +1,90 @@
+account
+	name:string 
+	primary_contact_id:integer
+	created_on:time
+	last_time_logged_in:time
+	enabled:boolean
+	
+	has_many: users
+	
+user:
+	first_name:string
+	last_name:string
+	password:string
+	last_time_logged_in:time
+	enabled:boolean
+	account_id:integer
+	
+	belongs_to:account
+	has_one:contact
+	
+contacts:
+	first_name:string
+	last_name:string
+	email:string
+	phone:string
+	cell:string
+	address1:string
+	address2:string
+	city:string
+	state:string
+	country:string
+	post_code:string
+	time_zone:string
+	account_id:string
+	tags:string
+	
+	has_and_belongs_to_many : groups
+	has_and_belongs_to_many : schedules
+	has_many : histories
+	belongs_to: account
+	
+application:
+	name:string
+	wait_wav:string
+	application_human:string
+	application_machine:string
+	account_id:string
+	
+	belongs_to:account
+	has_many:schedules
+	has_many:tasks
+	
+schedule:
+	start_time:time
+	account_id:integer
+	application_id:integer
+	
+	has_and_belongs_to_many: groups
+	has_and_belongs_to_many: contacts
+	
+	belongs_to:account
+	belongs_to:application
+	has_many: histories
+
+task:
+	schedule_id:integer
+	application_id:integer
+	start_time:time
+	started:boolean
+	completed:boolean
+	
+	belongs_to:schedule
+	belongs_to:application
+	has_one:history
+	
+group:
+	name: string
+	enabled: boolean
+	has_and_belongs_to_many : contacts
+	has_and_belongs_to_many : schedules
+	
+history:
+	schedule_id:integer
+	executed_on:time
+	contact_id:integer
+	results:string
+	
+	belongs_to:contact
+	belongs_to:schedule
+	belongs_to:task

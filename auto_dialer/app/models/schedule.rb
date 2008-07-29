@@ -5,7 +5,7 @@ class Schedule < ActiveRecord::Base
   
   def initialize(params=nil)
     super(nil)
-    self.state  ||= :pending 
+    self.state  ||= "pending" 
   end
   
 end

@@ -2,14 +2,25 @@
 
 %table
   %tr
+    %th Time
+    %th Event
+    %th Contact
     %th Result
 
-- for history in @histories
-  %tr
-    %td=h history.result
-  
-    %td= link_to 'Show', history_path(history)
-    %td= link_to 'Edit', edit_history_path(history)
-    %td= link_to 'Destroy', history_path(history), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
+  - for history in @histories
+    %tr
+      %td{:width=>"200"}=h history.updated_at
+      - if history.schedule.nil?
+        %td Schedule has been deleted
+      - else
+        %td= link_to "#{history.schedule.app.name}", :controller => "apps", :action => "show", :id => history.schedule.app.id
+      - if history.contact.nil?
+        %td Contact has been deleted
+      - else
+        %td= link_to "#{history.contact.first_name} #{history.contact.last_name}", :controller => "contacts", :action => "show", :id => history.contact.id
+      %td=h history.result
     
-= link_to 'New history', new_history_path 
+= will_paginate @histories
+
+= link_to "Delete All History", {:action=>"delete_history", :controller=>"histories"}
+

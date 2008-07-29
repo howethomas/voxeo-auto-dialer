@@ -4,7 +4,7 @@ class HistoriesController < ApplicationController
   # GET /history
   # GET /history.xml
   def index
-    @histories = History.find(:all)
+    @histories = History.paginate :page => params[:page], :order => "created_at DESC", :per_page => 25 
 
     respond_to do |format|
       format.html # index.haml
@@ -79,6 +79,14 @@ class HistoriesController < ApplicationController
     @history = History.find(params[:id])
     @history.destroy
 
+    respond_to do |format|
+      format.html { redirect_to(histories_url) }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def delete_history
+    History.delete_all
     respond_to do |format|
       format.html { redirect_to(histories_url) }
       format.xml  { head :ok }

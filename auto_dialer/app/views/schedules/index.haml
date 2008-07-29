@@ -8,7 +8,10 @@
     %th State
   - for schedule in @schedules
     %tr
-      %td=h "#{schedule.start} (#{distance_of_time_in_words(Time.now, schedule.start)})"
+      - if schedule.start < Time.now
+        %td{:width=>"300"}=h "#{schedule.start} (Scheduled to start #{distance_of_time_in_words(schedule.start,Time.now)} ago)"
+      - else
+        %td{:width=>"300"}=h "#{schedule.start} (Starts in #{distance_of_time_in_words(Time.now, schedule.start)})"
       %td
         - if schedule.tags.nil?
           = link_to "Sent to all contacts", :controller=>:contacts, :action=>:index 
@@ -16,7 +19,7 @@
           - for tag in schedule.tags.split 
             = link_to tag, :controller=>:contacts, :action=>:filter, :id=>tag 
       %td=h schedule.app.name
-      %td=h schedule.state 
+      %td=h schedule.state
       %td= link_to 'Show', schedule_path(schedule)
       %td= link_to 'Edit', edit_schedule_path(schedule)
       %td= link_to 'Destroy', schedule_path(schedule), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
