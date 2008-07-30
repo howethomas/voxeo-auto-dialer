@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  version: MyString
+  mock: false
+  debug_level: 1
+  admin_name: MyString
+  admin_email: MyString
+  daily_summary: false
+
+two:
+  version: MyString
+  mock: false
+  debug_level: 1
+  admin_name: MyString
+  admin_email: MyString
+  daily_summary: false

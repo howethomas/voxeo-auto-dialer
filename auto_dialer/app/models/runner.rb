@@ -8,6 +8,27 @@ class Runner < ActiveRecord::Base
     kick_off_calls
    end
 
+  def self.do_loop
+    ticks=0
+    loop do
+      option = Option.first
+      kick_off_calls
+      logger.debug("Kicked off calls") if option.debug_level > 0
+      logger.debug("Not sending calls. Mock enabled") if option.mock
+      case ticks.modulo(6)
+        when 0 :
+          kick_off_apps
+          logger.debug("Kicked off apps") if option.debug_level > 0
+        when 1:
+          complete_schedule
+          logger.debug("Looked for completed schedules") if option.debug_level > 0
+      end
+      ticks += 1
+      logger.debug("Sleeping") if option.debug_level > 0
+      sleep 10
+    end
+  end
+  
   def self.kick_off_apps
     # First, let's run through the scheduled tasks, and see if any of them are set to pending
     # and should be starting. If so, create tasks from the schedule
@@ -63,25 +84,31 @@ class Runner < ActiveRecord::Base
       if task.start < now
         logger.info("Kicking off a call to #{task.contact.phone}")
         puts("Kicking off a call to #{task.contact.phone}")
-        start_call(task)
-        task.started = true
-        task.completed = false  # Will be marked completed somehow
-        task.save
+        task.started=true
+        start_call(task.app, task.contact.phone)
         h = History.new
         h.schedule_id = task.schedule_id
         h.contact_id = task.contact_id
-        h.result = "Call Made"
+        h.result = "completed"
         h.save
+        task.completed=true
+        task.save
       else
         logger.info("Task is going to start in #{task.start-now}")
       end
     end
   end
 
-  def self.start_call(task)
-    logger.info("Sending a call to #{task.contact.phone}")
-    response = fetch("#{task.app.start_url}&numberToDial=tel:#{task.contact.phone}&humanApp=#{task.app.app_human}&machineApp=#{task.app.app_machine}&beepApp=#{task.app.app_beep}&waitWav=#{task.app.wait_wav}")
+  def self.start_call(app, phone)
+    option = Option.first
+    unless option.mock
+      logger.info("Sending a call to #{phone}")
+      response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}")
+    else
+      puts "No call is going to #{phone}. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
+    end
   end
+  
   
   def self.fetch(uri_str, limit=10) 
     fail 'http redirect too deep' if limit.zero? 
@@ -97,8 +124,20 @@ class Runner < ActiveRecord::Base
       end 
   end 
   
-  
-  
+  def self.complete_schedule
+    running_schedules = Schedule.find_all_by_state("running")
+    now = Time.zone.now
+    logger.info("Found #{running_schedules.size} applications running")
+    for schedule in running_schedules
+      tasks = schedule.tasks_left
+      logger.info("The schedule started at #{schedule.start} has #{tasks} tasks left.")
+      if tasks == 0
+        schedule.state = "completed"
+        schedule.save
+      end
+    end
+    
+  end
   def self.clean_up_calls
     completed_tasks = Task.find_all_by_completed(true)
   end  

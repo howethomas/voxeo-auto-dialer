@@ -6,7 +6,7 @@ class SchedulesController < ApplicationController
   # GET /schedule
   # GET /schedule.xml
   def index
-    @schedules = Schedule.find(:all)
+    @schedules = Schedule.paginate :page => params[:page], :order => "created_at DESC", :per_page => 10
     @apps = App.find(:all)
     
     respond_to do |format|

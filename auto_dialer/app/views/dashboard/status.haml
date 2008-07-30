@@ -1,5 +1,6 @@
 %h1 Current Dialer Status
-%p= Time.zone.now
+%p= "As of #{Time.zone.now}"
+  
 %p
   %strong Calls made in the past 5 minutes :
   = History.count_calls_since(5.minutes)
@@ -14,3 +15,16 @@
   = History.count_calls_since(24.hours)
   %br
 
+%h2 Running Schedules
+%table
+  %tr
+    %th Application Name
+    %th Started at
+    %th Total Tasks
+    %th Tasks Left
+  - for schedule in @running_schedules
+    %tr
+      %td=h schedule.app.name
+      %td=h schedule.start
+      %td=h schedule.total_tasks
+      %td=h schedule.tasks_left

@@ -14,6 +14,8 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '~> 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'chronic', :version => '~> 0.2.3', :lib => 'chronic'
   
+  
+  
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
   # -- all .rb files in that directory are automatically loaded.
@@ -67,4 +69,19 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+end
+
+# Make the options table if one doesn't exist
+begin
+  option = Option.find(:first)
+rescue Exception => e
+  option = Option.new
+end
+
+if option.nil?
+  option = Option.new
+  option.version = Time.zone.now.to_s
+  option.mock = false
+  option.debug_level = 0
+  option.save
 end

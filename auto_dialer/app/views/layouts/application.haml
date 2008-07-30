@@ -9,6 +9,7 @@
   %body
   
     %h1= link_to "AutoDialer", root_url if logged_in?
+    
     #container{:style => @full_size_container ? "width: 96%; background-color: white" : ''}
       %p.flash-notice{:style => "color: green"}= flash[:notice]
       %p.flash-error{ :style => "color: red"  }= flash[:error]
@@ -19,8 +20,11 @@
           %menu_bar= link_to 'Applications', :controller => "apps", :action => "index"   
           %menu_bar= link_to 'Schedule', :controller => "schedules", :action => "index"   
           %menu_bar= link_to 'History', :controller => "histories", :action => "index"   
+          %menu_bar= link_to 'Options', :controller => "options", :action => "index"   
           %menu_bar= link_to 'Help', :controller => "help", :action => "index"   
       = yield
+      - flash[:error] = 'Dialer is in mock mode. No actual calls are going through.' if Option.first.mock
+      
       %br/    
       %br/    
       %br/    

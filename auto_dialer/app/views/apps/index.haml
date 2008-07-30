@@ -7,7 +7,6 @@
     %th App human
     %th App machine
     %th App beep
-    %th Start URL (with key)
     %th Calls Per Minute
   - for app in @apps
     %tr
@@ -16,8 +15,8 @@
       %td=h app.app_human
       %td=h app.app_machine
       %td=h app.app_beep
-      %td=h app.start_url
       %td=h app.calls_per_minute
+      %td= link_to 'Test', :controller => 'apps', :action => 'test', :app_id => app.id
       %td= link_to 'Show', app_path(app)
       %td= link_to 'Edit', edit_app_path(app)
       %td= link_to 'Destroy', app_path(app), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete

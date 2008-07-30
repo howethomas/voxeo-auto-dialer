@@ -1,4 +1,4 @@
-%h1 Upcoming Calls
+%h1 Scheduled Calls
 
 %table
   %tr
@@ -24,4 +24,5 @@
       %td= link_to 'Edit', edit_schedule_path(schedule)
       %td= link_to 'Destroy', schedule_path(schedule), :confirm => 'Are you sure?', :method => :delete, :confirm => "Are you sure?", :method => :delete
     
+= will_paginate @schedules
 = link_to 'New schedule', new_schedule_path 

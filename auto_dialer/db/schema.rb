@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080730160423) do
+ActiveRecord::Schema.define(:version => 20080730201300) do
 
   create_table "Apps", :force => true do |t|
     t.string   "name"
@@ -84,6 +84,18 @@ ActiveRecord::Schema.define(:version => 20080730160423) do
     t.integer  "test2"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "options", :force => true do |t|
+    t.string   "version"
+    t.boolean  "mock"
+    t.integer  "debug_level"
+    t.string   "admin_name"
+    t.string   "admin_email"
+    t.boolean  "daily_summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "admin_phone"
   end
 
   create_table "runners", :force => true do |t|

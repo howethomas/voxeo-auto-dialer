@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :options
+
 
 
   
@@ -16,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.export_contacts '/export_contacts', :controller => "contacts", :action => "export"
   map.import_contacts '/import_contacts', :controller => "contacts", :action => "import"
+  map.test_app '/test_app', :controller => 'apps', :action => 'test'
   map.delete_history '/delete_history', :controller => "histories", :action => "delete_history"
    
   map.root :controller => "dashboard"

@@ -1,0 +1,33 @@
+%h1 Editing option
+
+= error_messages_for :option
+
+- form_for(@option) do |f|
+  %p
+    %b Version
+    = f.text_field :version 
+  %p
+    %b Mock
+    = f.check_box :mock 
+  %p
+    %b Debug level
+    = f.text_field :debug_level 
+  %p
+    %b Admin name
+    = f.text_field :admin_name 
+  %p
+    %b Admin email
+    = f.text_field :admin_email
+  %p
+    %b Admin phone
+    = f.text_field :admin_phone
+     
+  %p
+    %b Daily summary
+    = f.check_box :daily_summary 
+    
+  %p= f.submit "Update"
+  
+= link_to 'Show', option_path(@option)
+= link_to 'Back', options_path
+

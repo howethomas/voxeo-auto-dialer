@@ -84,4 +84,11 @@ class AppsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def test
+    number = Option.first.admin_phone
+    logger.info("Making a call to #{number}")
+    Runner.start_call(App.find(params[:app_id]), number)
+    redirect_to :controller => "apps", :action => "index"
+  end
 end

@@ -5,6 +5,8 @@ class DashboardController < ApplicationController
   end
 
   def status
+    @running_schedules = Schedule.find_all_by_state("running")
+    @upcoming_tasks = Task.find_all_by_started(false)
   end
 
 end

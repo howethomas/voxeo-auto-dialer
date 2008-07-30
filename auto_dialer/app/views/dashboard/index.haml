@@ -1,4 +1,10 @@
 %h1 Dashboard
 
-= link_to 'Status', :action => "status"
+%ul
+  %li=h "You have #{Contact.count} contacts"
+  %li=h "You have #{History.count} history entries"
+  %li=h "You have #{Schedule.count} defined schedules"
+  %li=h "You have #{Task.count_unfinished_tasks} unfinished tasks"
+  
+= link_to 'Current Dialer Status', :action => "status"
 
