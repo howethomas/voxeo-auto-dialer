@@ -1,3 +1,7 @@
+require 'net/http' 
+require 'uri' 
+
+
 class Runner < ActiveRecord::Base
   def self.process_tasks
     kick_off_apps
@@ -21,7 +25,7 @@ class Runner < ActiveRecord::Base
         # Get the tags from teh schedule, and find any contact that has these tags.
         # If the tags are null, then take all the contacts.
         tags = schedule.tags
-        if tags.nil?
+        if tags.nil? || tags.empty?
           recipients = Contact.find(:all)
         else
           recipients = Array.new
@@ -45,7 +49,6 @@ class Runner < ActiveRecord::Base
           t.completed = false
           t.save
           logger.info("Starting a new task to fire at #{t.start}") 
-          puts("Starting a new task to fire at #{t.start}")
           start_delay += 1.0/calls_per_minute 
         end
       end        
@@ -71,14 +74,30 @@ class Runner < ActiveRecord::Base
         h.save
       else
         logger.info("Task is going to start in #{task.start-now}")
-        puts("Task is going to start in #{task.start-now}")
       end
     end
   end
 
   def self.start_call(task)
     logger.info("Sending a call to #{task.contact.phone}")
+    response = fetch("#{task.app.start_url}&numberToDial=tel:#{task.contact.phone}&humanApp=#{task.app.app_human}&machineApp=#{task.app.app_machine}&beepApp=#{task.app.app_beep}&waitWav=#{task.app.wait_wav}")
   end
+  
+  def self.fetch(uri_str, limit=10) 
+    fail 'http redirect too deep' if limit.zero? 
+    puts "Trying: #{uri_str}" 
+    response = Net::HTTP.get_response(URI.parse(uri_str)) 
+    case response 
+      when Net::HTTPSuccess 
+        response 
+      when Net::HTTPRedirection 
+        fetch(response['location'], limit-1) 
+      else 
+        response.error! 
+      end 
+  end 
+  
+  
   
   def self.clean_up_calls
     completed_tasks = Task.find_all_by_completed(true)

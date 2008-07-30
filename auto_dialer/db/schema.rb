@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080729185137) do
+ActiveRecord::Schema.define(:version => 20080730160423) do
 
   create_table "Apps", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20080729185137) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "calls_per_minute"
+    t.string   "app_beep"
+    t.string   "start_url"
   end
 
   create_table "accounts", :force => true do |t|

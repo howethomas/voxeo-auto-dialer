@@ -50,6 +50,7 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.new(params[:schedule])
     @schedule.start = Chronic.parse(params[:schedule][:start])
     @schedule.app_id = params[:schedule][:app_id]
+    @schedule.tags = params[:schedule][:tags]
     
     respond_to do |format|
       if @schedule.save
