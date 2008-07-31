@@ -2,6 +2,12 @@ class Schedule < ActiveRecord::Base
   belongs_to :account
   belongs_to :app
   has_many :histories
+    
+  def validate 
+    unless start > Time.zone.now - 1.minute   
+      errors.add(:start, " is in the past.") 
+    end 
+  end 
   
   def initialize(params=nil)
     super(nil)

@@ -31,7 +31,8 @@ class SchedulesController < ApplicationController
   def new
     @schedule = Schedule.new
     @apps = App.find(:all)
-    
+    @tags = Contact.get_tags
+
     respond_to do |format|
       format.html # new.haml
       format.xml  { render :xml => @schedule }
@@ -47,17 +48,18 @@ class SchedulesController < ApplicationController
   # POST /schedule
   # POST /schedule.xml
   def create
-    @schedule = Schedule.new(params[:schedule])
-    @schedule.start = Chronic.parse(params[:schedule][:start])
-    @schedule.app_id = params[:schedule][:app_id]
-    @schedule.tags = params[:schedule][:tags]
-    
+    @schedule = Schedule.new
+    @schedule.update_attributes(params[:schedule])
+    @schedule.tags = params[:tags] 
+    @schedule.tags = nil if @schedule.tags.downcase == "all"
     respond_to do |format|
       if @schedule.save
         flash[:notice] = 'Schedule was successfully created.'
         format.html { redirect_to(schedule_path(@schedule)) }
         format.xml  { render :xml => @schedule, :status => :created, :location => @schedule }
       else
+        @apps = App.find(:all)
+        @tags = Contact.get_tags
         format.html { render :action => "new" }
         format.xml  { render :xml => @schedule.errors, :status => :unprocessable_entity }
       end

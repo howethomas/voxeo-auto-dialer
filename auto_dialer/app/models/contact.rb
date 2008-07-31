@@ -4,6 +4,10 @@ class Contact < ActiveRecord::Base
   has_many :histories
   belongs_to :account
   
+  
+  belongs_to :account
+  validates_presence_of :first_name, :phone, :account_id
+
   class << self
     def get_tags
       all = Contact.find(:all)

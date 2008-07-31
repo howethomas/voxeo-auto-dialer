@@ -3,7 +3,7 @@
   =h "#{@schedule.start} (#{distance_of_time_in_words(Time.now, @schedule.start)})"
 %p
   %b Tags:
-  =h @schedule.tags 
+  =h @schedule.tags.nil? ? "Sent to all contacts" : @schedule.tags 
 %p
   %b Application:
   =h @schedule.app.name

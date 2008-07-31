@@ -85,7 +85,7 @@ class Runner < ActiveRecord::Base
         logger.info("Kicking off a call to #{task.contact.phone}")
         puts("Kicking off a call to #{task.contact.phone}")
         task.started=true
-        start_call(task.app, task.contact.phone)
+        start_call(task.app, task.contact.phone, task.id)
         h = History.new
         h.schedule_id = task.schedule_id
         h.contact_id = task.contact_id
@@ -99,11 +99,16 @@ class Runner < ActiveRecord::Base
     end
   end
 
-  def self.start_call(app, phone)
+  def self.start_call(app, phone, task_id=nil)
     option = Option.first
     unless option.mock
       logger.info("Sending a call to #{phone}")
-      response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}")
+      if task_id.nil?
+        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}")
+      else
+        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}&taskID=#{task_id}")        
+      end
+      puts response.body
     else
       puts "No call is going to #{phone}. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
     end

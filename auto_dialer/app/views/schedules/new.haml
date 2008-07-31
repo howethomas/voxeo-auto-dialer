@@ -3,18 +3,15 @@
 = error_messages_for :schedule 
 
 - form_for(@schedule) do |f| 
-  %p
-    %b Start time in natural language
-    %br
-    = f.text_field :start 
-  %p
+  %b Start Time
+  = f.datetime_select :start
+  - unless @tags.nil?
+    %p
     %b Tags
-    %br
-    = f.text_field :tags
+    = select_tag :tags, options_for_select(@tags) 
   %p
-    %b Application
-    %br
-    = f.collection_select('app_id', @apps, :id, :name)
+  %b Application
+  = f.collection_select('app_id', @apps, :id, :name)
   %p
     = f.submit "Create"
     

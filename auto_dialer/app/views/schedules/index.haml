@@ -18,7 +18,7 @@
         - else
           - for tag in schedule.tags.split 
             = link_to tag, :controller=>:contacts, :action=>:filter, :id=>tag 
-      %td=h schedule.app.name
+      %td= link_to schedule.app.name, :controller=>:apps, :action=>:show, :id=>schedule.app.id
       %td=h schedule.state
       %td= link_to 'Show', schedule_path(schedule)
       %td= link_to 'Edit', edit_schedule_path(schedule)
