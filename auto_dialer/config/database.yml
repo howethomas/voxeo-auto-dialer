@@ -16,6 +16,7 @@ test:
 production:
     adapter: mysql
     database: auto_dialer
+    host: localhost
     username: root
     password: 
 
