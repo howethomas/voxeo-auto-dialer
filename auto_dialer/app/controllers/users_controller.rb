@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :login_required
-
   # render new.rhtml
   def new
   end

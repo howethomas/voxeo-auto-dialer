@@ -1,9 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :options
-
-
-
-  
   map.resources :users
   map.resources :sessions
   map.resources :apps
@@ -12,8 +8,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
   map.resources :apps
   map.resources :contacts
-  
-  
   
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'
