@@ -3,9 +3,9 @@
 one:
   start: 2008-07-23 11:34:54
   account_id: 1
-  application_id: 1
+  app_id: 1
 
 two:
   start: 2008-07-23 11:34:54
   account_id: 1
-  application_id: 1
+  app_id: 1

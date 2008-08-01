@@ -12,15 +12,21 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups
   map.resources :apps
   map.resources :contacts
+  
+  
+  
   map.activate '/activate/:activation_code', :controller => 'users', :action => 'activate', :activation_code => nil
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.export_contacts '/export_contacts', :controller => "contacts", :action => "export"
   map.import_contacts '/import_contacts', :controller => "contacts", :action => "import"
+  map.delete_contacts '/delete_contacts', :controller => "contacts", :action => "delete_contacts"
+  
   map.test_app '/test_app', :controller => 'apps', :action => 'test'
   map.delete_history '/delete_history', :controller => "histories", :action => "delete_history"
-   
+  map.export_history '/export_history', :controller => "histories", :action => "export"
+ 
   map.root :controller => "dashboard"
 
   # The priority is based upon order of creation: first created -> highest priority.

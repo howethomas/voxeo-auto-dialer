@@ -2,14 +2,14 @@
 
 one:
   schedule_id: 1
-  application_id: 1
+  app_id: 1
   start: 2008-07-23 11:35:41
   started: false
   completed: false
 
 two:
   schedule_id: 1
-  application_id: 1
+  app_id: 1
   start: 2008-07-23 11:35:41
   started: false
   completed: false

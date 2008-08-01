@@ -1,0 +1,145 @@
+  [4;36;1mOption Load (0.001094)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001197)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001133)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001093)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001151)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001098)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001092)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001099)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001097)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001287)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001153)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001180)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001096)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001094)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001101)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001102)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001098)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001115)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001091)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001151)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001315)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001131)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001271)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001260)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001131)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001151)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001136)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001257)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000985)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000856)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000824)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000840)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000837)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000924)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000823)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000823)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000823)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000867)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.000886)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.000896)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mOption Load (0.001096)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001098)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001097)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001094)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001097)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001093)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001106)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001098)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001110)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001094)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001089)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001120)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001101)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001097)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001325)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001096)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001247)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001178)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001161)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001293)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001324)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001168)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001249)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001217)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001273)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.009211)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001095)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001263)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001101)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001267)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001104)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001267)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001143)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001172)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001601)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000170)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001083)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000215)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001105)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001093)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000186)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001094)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000200)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001194)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000178)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001084)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mSQL (0.000197)[0m   [0mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mSQL (0.000084)[0m   [0;1mSELECT "name" FROM "apps" WHERE ("apps".name IS NULL) [0m
+  [4;36;1mOption Load (0.001084)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001252)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001192)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001256)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001251)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001245)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001145)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001353)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;35;1mApp Load (0.000235)[0m   [0mSELECT * FROM "apps" LIMIT 1[0m
+  [4;36;1mOption Load (0.001421)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001282)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001249)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001306)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001278)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m
+  [4;36;1mOption Load (0.001254)[0m   [0;1mSELECT * FROM "options" LIMIT 1[0m

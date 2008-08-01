@@ -6,7 +6,7 @@ class Contact < ActiveRecord::Base
   
   
   belongs_to :account
-  validates_presence_of :first_name, :phone, :account_id
+  validates_presence_of :first_name, :phone
 
   class << self
     def get_tags

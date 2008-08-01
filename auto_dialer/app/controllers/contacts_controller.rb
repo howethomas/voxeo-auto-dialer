@@ -120,7 +120,9 @@ class ContactsController < ApplicationController
       first, last, phone, email, cell, address1, address2, city, state, country, post_code, time_zone, tags = 
       info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12]
       unless first.downcase == "first_name"  
-        contact = Contact.find_by_email(email)
+        puts "Looking for #{first} and #{phone}"
+        contact = Contact.find_by_phone(phone)
+        puts "Found contact #{contact.id}" unless contact.nil?
         contact = Contact.new if contact.nil?
         contact.first_name = first
         contact.last_name = last
@@ -135,9 +137,15 @@ class ContactsController < ApplicationController
         contact.post_code = post_code
         contact.time_zone = time_zone
         contact.tags = tags
+        puts "The contact is invalid" unless contact.valid?
         contact.save
       end
     end
+    redirect_to :action => 'index'
+  end
+  
+  def delete_contacts
+    Contact.delete_all
     redirect_to :action => 'index'
   end
   

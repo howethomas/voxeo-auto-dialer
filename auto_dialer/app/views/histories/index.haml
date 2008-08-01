@@ -22,5 +22,6 @@
     
 = will_paginate @histories
 
-= link_to "Delete All History", {:action=>"delete_history", :controller=>"histories"}
+= link_to "Delete All History", {:action=>"delete_history", :controller=>"histories"}, :confirm => "Are you sure?"
+= link_to "Download History", {:controller=> :histories, :action=> :export}
 

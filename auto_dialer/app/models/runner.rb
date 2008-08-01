@@ -82,15 +82,15 @@ class Runner < ActiveRecord::Base
     
     for task in pending_tasks
       if task.start < now
-        logger.info("Kicking off a call to #{task.contact.phone}")
-        puts("Kicking off a call to #{task.contact.phone}")
-        task.started=true
-        start_call(task.app, task.contact.phone, task.id)
         h = History.new
         h.schedule_id = task.schedule_id
         h.contact_id = task.contact_id
-        h.result = "completed"
+        h.result = "Sent to Server"
         h.save
+        logger.info("Kicking off a call to #{task.contact.phone}")
+        puts("Kicking off a call to #{task.contact.phone}")
+        task.started=true
+        start_call(task.app, task.contact.phone, h.id)
         task.completed=true
         task.save
       else
@@ -99,14 +99,14 @@ class Runner < ActiveRecord::Base
     end
   end
 
-  def self.start_call(app, phone, task_id=nil)
+  def self.start_call(app, phone, history_id=nil)
     option = Option.first
     unless option.mock
       logger.info("Sending a call to #{phone}")
-      if task_id.nil?
+      if history_id.nil?
         response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}")
       else
-        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}&taskID=#{task_id}")        
+        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}&taskID=#{history_id}")        
       end
       puts response.body
     else

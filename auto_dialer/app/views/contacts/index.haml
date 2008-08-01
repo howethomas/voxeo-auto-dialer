@@ -28,6 +28,7 @@
       
 = will_paginate @contacts
 = link_to 'New contact', new_contact_path 
+= link_to "Delete contacts", {:action=>"delete_contacts", :controller=>"contacts"}, :confirm => "Are you sure?"
 = link_to 'Download contacts', {:action => "export"}  
 
 %a{:href => '#', :onclick=> "new Effect.Appear('file-upload-form')"} Upload

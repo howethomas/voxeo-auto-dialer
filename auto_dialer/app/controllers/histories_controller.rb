@@ -85,6 +85,19 @@ class HistoriesController < ApplicationController
     end
   end
   
+  def export
+    s = History.find(:all)
+    stream_csv do |csv|
+      csv << ["schedule","contact_id", "phone", "result","created_at"]
+      s.each do |u|
+        schedule = u.schedule.nil? ? "Schedule deleted" : u.schedule.name
+        contact_id = u.contact.nil? ? "Contact deleted" : u.contact.id
+        phone = u.contact.nil? ? "Contact deleted" : u.contact.phone
+        csv << [schedule, contact_id, phone,u.result,u.created_at]
+      end
+    end
+    redirect_to(histories_url)
+  end
   def delete_history
     History.delete_all
     respond_to do |format|
@@ -92,4 +105,27 @@ class HistoriesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+  def stream_csv
+     filename = params[:action] + ".csv"    
+
+     #this is required if you want this to work with IE        
+     if request.env['HTTP_USER_AGENT'] =~ /msie/i
+       headers['Pragma'] = 'public'
+       headers["Content-type"] = "text/plain" 
+       headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+       headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
+       headers['Expires'] = "0" 
+     else
+       headers["Content-Type"] ||= 'text/csv'
+       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+     end
+
+    render :text => Proc.new { |response, output|
+      csv = FasterCSV.new(output, :row_sep => "\r\n") 
+      yield csv
+    }
+  end
+  
 end
