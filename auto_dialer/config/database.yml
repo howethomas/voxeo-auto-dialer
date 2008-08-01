@@ -15,8 +15,8 @@ test:
 
 production:
     adapter: mysql
+    encoding: utf8
     database: auto_dialer
-    host: localhost
     username: root
-    password: 
-
+    password:
+    socket: /var/run/mysqld/mysqld.sock
