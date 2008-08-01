@@ -71,17 +71,4 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 end
 
-# Make the options table if one doesn't exist
-begin
-  option = Option.find(:first)
-rescue Exception => e
-  option = Option.new
-end
 
-if option.nil?
-  option = Option.new
-  option.version = Time.zone.now.to_s
-  option.mock = false
-  option.debug_level = 0
-  option.save
-end

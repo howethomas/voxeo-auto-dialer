@@ -1,5 +1,21 @@
 class Utility < ActiveRecord::Base
   
+  def self.setup_options
+    begin
+    	option = Option.find(:first)
+  	rescue Exception => e
+  	  option = Option.new
+  	end
+  	if option.nil?
+  	  option = Option.new
+  	  option.version = Time.zone.now.to_s
+  	  option.mock = false
+  	  option.debug_level = 0
+  	  option.save
+  	end
+    
+  end
+  
   def self.pick_random table
     table[rand(table.length)]
   end
