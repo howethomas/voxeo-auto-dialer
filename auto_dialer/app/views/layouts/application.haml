@@ -25,7 +25,6 @@
           %menu_bar= link_to 'Options', :controller => "options", :action => "index"   
           %menu_bar= link_to 'Help', :controller => "help", :action => "index"   
       = yield
-      - flash[:error] = 'Dialer is in mock mode. No actual calls are going through.' if Option.first.mock
       
       %br/    
       %br/    

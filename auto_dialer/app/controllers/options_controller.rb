@@ -24,6 +24,11 @@ class OptionsController < ApplicationController
     respond_to do |format|
       if @option.update_attributes(params[:option])
         flash[:notice] = 'Option was successfully updated.'
+        if @option.mock?
+          flash[:error] = 'Dialer is in mock mode. No actual calls are going through.' 
+        else
+          flash.discard(:error )
+        end
         format.html { render :action => "index"}
         format.xml  { head :ok }
       else
