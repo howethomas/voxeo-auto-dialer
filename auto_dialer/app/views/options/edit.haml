@@ -26,6 +26,10 @@
     %b Daily summary
     = f.check_box :daily_summary 
     
+  %p
+    %b Support URL
+    = f.text_field :support_url 
+
   %p= f.submit "Update"
   
 = link_to 'Show', option_path(@option)

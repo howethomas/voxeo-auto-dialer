@@ -90,7 +90,7 @@ class Runner < ActiveRecord::Base
         logger.info("Kicking off a call to #{task.contact.phone}")
         puts("Kicking off a call to #{task.contact.phone}")
         task.started=true
-        start_call(task.app, task.contact.phone, h.id)
+        start_call(task.app, task.contact.phone, h.id, task.contact)
         task.completed=true
         task.save
       else
@@ -99,18 +99,32 @@ class Runner < ActiveRecord::Base
     end
   end
 
-  def self.start_call(app, phone, history_id=nil)
+  def self.start_call(app, phone, history_id=nil, contact=nil)
     option = Option.first
-    unless option.mock
-      logger.info("Sending a call to #{phone}")
-      if history_id.nil?
-        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}")
-      else
-        response = fetch("#{app.start_url}&numberToDial=tel:#{phone}&humanApp=#{app.app_human}&machineApp=#{app.app_machine}&beepApp=#{app.app_beep}&waitWav=#{app.wait_wav}&taskID=#{history_id}")        
+        
+    # We need to build the URL.  First, the base is always the same...
+    call_url = "#{app.start_url}&numberToDial=tel:#{phone}"
+    call_url += "&humanApp=#{app.app_human}" if app.app_human
+    call_url += "&machineApp=#{app.app_machine}" if app.app_machine
+    call_url += "&beepApp=#{app.app_beep}" if app.app_beep
+    call_url += "&waitWav=#{app.wait_wav}" if app.wait_wav
+    
+    if contact
+      # Now, add the options...
+      options = app.fields.split
+      for o in options do
+        call_url += "&#{o}=#{contact.send(o)}"
       end
-      puts response.body
+    end
+    
+    if history_id
+      call_url += "&history_id=#{history_id}"
+    end
+    logger.info("Sending call to #{call_url}")
+    unless option.mock
+      response = fetch(call_url)
     else
-      puts "No call is going to #{phone}. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
+      logger.info "No fetch. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
     end
   end
   

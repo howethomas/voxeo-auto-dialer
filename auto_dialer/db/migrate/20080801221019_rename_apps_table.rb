@@ -1,6 +1,10 @@
 class RenameAppsTable < ActiveRecord::Migration
   def self.up
-    rename_table :Apps, :apps
+    begin
+      rename_table :Apps, :apps      
+    rescue Exception => e
+      
+    end
   end
 
   def self.down

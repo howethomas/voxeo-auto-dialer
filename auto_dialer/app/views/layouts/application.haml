@@ -34,7 +34,10 @@
       
   .footer
     %span.powered-by
-      %small_text= mail_to("ticket+thomashowe.14922-wbvmnq36@lighthouseapp.com", "Found a bug?", :cc => "howethomas@aol.com")
+      - if Option.first && ! Option.first.support_url.empty?
+        %small_text= mail_to(Option.first.support_url, "Found a bug?")
+      - else
+        %small_text= mail_to("ticket+thomashowe.14922-wbvmnq36@lighthouseapp.com", "Found a bug?", :cc => "howethomas@aol.com")
       |
       Powered by
       %a{:href => "http://rubyonrails.org"} Rails
