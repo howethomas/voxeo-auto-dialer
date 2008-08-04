@@ -1,0 +1,7 @@
+<vxml version="2.0">
+  <form>
+    <block>
+    <prompt> The machine is angry! </prompt>
+    </block>
+</form>
+</vxml>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ccxml version="1.0" xmlns="http://www.w3.org/2002/09/ccxml" xmlns:voxeo="http://community.voxeo.com/xmlns/ccxml">
+
+<meta name="author" content="Jeff Menkel"/>
+<meta name="copyright" content="2007 Voxeo Corporation"/>
+<meta name="maintainer" content="howethomas@aol.com"/>
+
+<var name="state0" expr="'init'"/>
+<var name="DlgActive" expr="'no'"/>
+<var name="lastCPAEventTime" expr="new Date().getTime()"/>
+<var name="DlgExitStatus" expr="'unforced'"/>
+<var name="call_0"/>
+<var name="playMsg"/>
+
+<eventprocessor statevariable="state0">
+  <transition state="init" event="ccxml.loaded">
+    <createcall dest="session.values.numberToDial"
+                timeout="'60000ms'"
+                voxeo-cpa-runtime="'60000'"
+                voxeo-cpa-maxtime="'4000'"
+                voxeo-cpa-maxsilence="'1000'"
+                voxeo-cpa-maskevent="'human,machine,beep'"
+                voxeo-cpa-maskstop="''"
+                connectionid="call_0"/>
+  </transition>
+
+  <transition event="connection.connected">
+    <log expr="'*** CALL CONNECTED -- WAITING FOR CPA ***'"/>
+  </transition>
+
+  <transition event="connection.failed">
+    <log expr="'*** CALL FAILED [' + event$.connectionid + '] ***'"/>
+    <log expr="'*** REASON [' + event$.reason + '] ***'"/>
+    <exit/>
+  </transition>
+
+  <transition event="voxeo.cpa.result">
+    <log expr="'*** CPA SAYS [' + event$.type + '] ***'"/>
+
+<!--  If it has been more than 1000ms since the last time we have    -->
+<!--  received the 'voxeo.cpa.result' event, we will process this    -->
+<!--  code.  This logic will simply prevent multiple CPA events,    -->
+<!--  such as a 'machine' and then an immediate 'beep' event, from    -->
+<!--  overlapping and causing a state mismatch when trying to        -->
+<!--  start and terminate the message dialog. -->
+
+    <if cond="new Date().getTime() - lastCPAEventTime >= 1000">
+
+<!--  Put a new time stamp on the last time we have received the    -->
+<!--  'voxeo.cpa.result' event.  -->
+
+      <assign name="lastCPAEventTime" expr="new Date().getTime()"/>
+
+      <if cond="event$.type == 'human'">
+        <log expr="'*** HUMAN ANSWERED -- PLAY MESSAGE ***'"/>
+      	<dialogstart src="session.values.humanApp" type="'application/voicexml+xml'" connectionid="call_0" dialogid="Message_Dlg" />
+      <elseif cond="event$.type == 'machine'"/>
+        <log expr="'*** MACHINE ANSWERED -- PLAY MESSAGE ***'"/>
+      	<dialogstart src="session.values.machineApp" type="'application/voicexml+xml'" connectionid="call_0" dialogid="Message_Dlg" />
+      <elseif cond="event$.type == 'beep'"/>
+        <log expr="'*** BEEP DETECTED -- PLAY MESSAGE ***'"/>
+      	<dialogstart src="session.values.beepApp" type="'application/voicexml+xml'" connectionid="call_0" dialogid="Message_Dlg" />
+      </if>
+    </if>
+  </transition>
+
+  <transition event="dialog.exit">
+
+<!--  If the dialog has exited 'unforced', then the message has      -->
+<!--  been completely delivered.  -->
+
+    <if cond="DlgExitStatus == 'unforced'">
+      <log expr="'*** MESSAGE PLAYED ***'"/>
+      <exit/>
+
+<!--  If the dialog has been 'forced' to exit, then we send the      -->
+<!--  'playMsg' event to start the message dialog over again.        -->
+
+    <else/>
+      <log expr="'*** MESSAGE DISRUPTED -- RESTARTING MESSAGE ***'"/>
+      <assign name="DlgActive" expr="'no'"/>
+      <send data="'humanApp'" target="session.id"/>
+    </if>
+  </transition>
+
+  <transition event="connection.disconnected">
+    <if cond="call_0 == event$.connectionid">
+      <log expr="'*** CALL DISCONNECTED -- EXIT ***'"/>
+      <exit/>
+    </if>
+  </transition>
+
+  <transition event="error.*">
+    <log expr="'*** AN ERROR HAS OCCURRED [' + event$.reason + '] ***'"/>
+    <exit/>
+  </transition>
+</eventprocessor>
+</ccxml>
