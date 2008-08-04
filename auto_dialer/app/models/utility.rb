@@ -11,6 +11,7 @@ class Utility < ActiveRecord::Base
   	  option.version = Time.zone.now.to_s
   	  option.mock = false
   	  option.debug_level = 0
+  	  option.support_url = "ticket+thomashowe.14922-wbvmnq36@lighthouseapp.com"
   	  option.save
   	end
     
