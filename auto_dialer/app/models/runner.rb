@@ -41,7 +41,12 @@ class Runner < ActiveRecord::Base
         # Looks like it's time to start kicking calls off
         logger.info("Starting app #{schedule.app.name}")
         schedule.state="running"
-        schedule.save
+        if schedule.valid?
+          schedule.save
+        else
+          logger.info("Could not save the schedule #{schedule.inspect}")
+          logger.info("")
+        end
         
         # Get the tags from teh schedule, and find any contact that has these tags.
         # If the tags are null, then take all the contacts.
