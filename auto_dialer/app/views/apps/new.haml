@@ -31,6 +31,14 @@
     %b Calls Per Minute
     %br
     = f.text_field :calls_per_minute
+  %p 
+    %b Fields to send to script
+    = f.text_field :fields
+    %br
+    %text_fields
+      %b Valid fields are: 
+      - for name in Contact.column_names
+        = name
 
   %p
     = f.submit "Create"
