@@ -8,8 +8,8 @@ class DashboardController < ApplicationController
     @running_schedules = Schedule.find_all_by_state("running")
     @upcoming_tasks = Task.find_all_by_started(false)
 
-    @engine_output = %x[tail -r -n 100 log/engine.log]
-    @server_output = %x[tail -r -n 100 log/#{RAILS_ENV}.log]
+    @engine_output = %x[tail -n 100 log/engine.log]
+    @server_output = %x[tail -n 100 log/#{RAILS_ENV}.log]
   end
   
   def download_engine_log
