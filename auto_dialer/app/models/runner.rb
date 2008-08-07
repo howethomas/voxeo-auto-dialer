@@ -3,30 +3,52 @@ require 'uri'
 
 
 class Runner < ActiveRecord::Base
+  @debug_level=0
+  @RUNNER_LOGGER
+    
   def self.process_tasks
     kick_off_apps
     kick_off_calls
    end
 
-  def self.do_loop
-    ticks=0
-    loop do
-      option = Option.first
-      kick_off_calls
-      logger.debug("Kicked off calls") if option.debug_level > 0
-      logger.debug("Not sending calls. Mock enabled") if option.mock
-      case ticks.modulo(6)
-        when 0 :
-          kick_off_apps
-          logger.debug("Kicked off apps") if option.debug_level > 0
-        when 1:
-          complete_schedule
-          logger.debug("Looked for completed schedules") if option.debug_level > 0
-      end
-      ticks += 1
-      logger.debug("Sleeping") if option.debug_level > 0
-      sleep 10
+  def self.debug(msg)
+    if @debug_level > 0
+      text = "RUNNER : #{Time.zone.now} : " + msg
+      logger.debug(text)
+      @RUNNER_LOGGER.debug(text)
+      puts text
     end
+  end
+  
+  def self.do_loop
+    @RUNNER_LOGGER = Logger.new("#{RAILS_ROOT}/log/engine.log")
+    @RUNNER_LOGGER.level = Logger::DEBUG
+    ticks=0
+    
+    begin
+      loop do
+        option = Option.first
+        @debug_level = option.debug_level
+        kick_off_calls
+        debug("Tick #{ticks}")
+        debug("Not sending calls. Mock enabled") if option.mock
+        case ticks.modulo(6)
+          when 0 :
+            kick_off_apps
+            debug("Kicked off apps") 
+          when 1:
+            complete_schedule
+            debug("Looked for completed schedules") 
+        end
+        ticks += 1
+        debug("Sleeping")
+        sleep 10
+      end
+    rescue Exception => e
+      debug("Caught an exception! "+ e.backtrace.join("\n"))
+      retry
+    end
+    
   end
   
   def self.kick_off_apps
@@ -34,18 +56,18 @@ class Runner < ActiveRecord::Base
     # and should be starting. If so, create tasks from the schedule
     pending_schedules = Schedule.find_all_by_state("pending")
     now = Time.zone.now
-    logger.info("Found #{pending_schedules.size} applications pending")
+    debug("Found #{pending_schedules.size} applications pending")
     for schedule in pending_schedules
-      logger.info("Looking to see if #{schedule.start} is before #{now}")
+      debug("Looking to see if #{schedule.start} is before #{now}")
       if schedule.start < now
         # Looks like it's time to start kicking calls off
-        logger.info("Starting app #{schedule.app.name}")
+        debug("Starting app #{schedule.app.name}")
         schedule.state="running"
         if schedule.valid?
           schedule.save
         else
-          logger.info("Could not save the schedule #{schedule.inspect}")
-          logger.info("")
+          debug("Could not save the schedule #{schedule.inspect}")
+          debug("")
         end
         
         # Get the tags from teh schedule, and find any contact that has these tags.
@@ -74,7 +96,7 @@ class Runner < ActiveRecord::Base
           t.started = false
           t.completed = false
           t.save
-          logger.info("Starting a new task to fire at #{t.start}") 
+          debug("Starting a new task #{t.id} to fire at #{t.start}") 
           start_delay += 1.0/calls_per_minute 
         end
       end        
@@ -92,14 +114,14 @@ class Runner < ActiveRecord::Base
         h.contact_id = task.contact_id
         h.result = "Sent to Server"
         h.save
-        logger.info("Kicking off a call to #{task.contact.phone}")
-        puts("Kicking off a call to #{task.contact.phone}")
+        debug("Kicking off a call to #{task.contact.phone}")
         task.started=true
         start_call(task.app, task.contact.phone, h.id, task.contact)
         task.completed=true
         task.save
+        debug("Just completed task #{task.id}")
       else
-        logger.info("Task is going to start in #{task.start-now}")
+        debug("Task is going to start in #{task.start-now}")
       end
     end
   end
@@ -108,38 +130,38 @@ class Runner < ActiveRecord::Base
     option = Option.first
         
     # We need to build the URL.  First, the base is always the same...
-    call_url = "#{app.start_url}&numberToDial=tel:#{phone}"
-    call_url += "&humanApp=#{app.app_human}" if app.app_human
-    call_url += "&machineApp=#{app.app_machine}" if app.app_machine
-    call_url += "&beepApp=#{app.app_beep}" if app.app_beep
-    call_url += "&waitWav=#{app.wait_wav}" if app.wait_wav
+    call_url = "#{app.start_url}&numberToDial=tel:#{phone.strip}"
+    call_url += "&humanApp=#{app.app_human.strip}" if app.app_human
+    call_url += "&machineApp=#{app.app_machine.strip}" if app.app_machine
+    call_url += "&beepApp=#{app.app_beep.strip}" if app.app_beep
+    call_url += "&waitWav=#{app.wait_wav.strip}" if app.wait_wav
     
     if contact
       # Now, add the options...
       options = app.fields.split
       for o in options do
-        call_url += "&#{o}=#{contact.send(o)}"
+        call_url += "&#{o}=#{contact.send(o).strip}"
       end
     end
     
     if history_id
-      call_url += "&history_id=#{history_id}"
+      call_url += "&history_id=#{history_id.strip}"
     end
     logger.info("Sending call to #{call_url}")
     unless option.mock
       response = fetch(call_url)
     else
-      logger.info "No fetch. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
+      debug "No fetch. Application is in mock mode. To change, visit the option menu and uncheck 'mock'."
     end
   end
   
   
   def self.fetch(uri_str, limit=10) 
     fail 'http redirect too deep' if limit.zero? 
-    puts "Trying: #{uri_str}" 
+    debug "Trying: #{uri_str}" 
     response = Net::HTTP.get_response(URI.parse(uri_str)) 
     case response 
-      when Net::HTTPSuccess 
+      when Net::HTTPSuccess
         response 
       when Net::HTTPRedirection 
         fetch(response['location'], limit-1) 
@@ -151,10 +173,10 @@ class Runner < ActiveRecord::Base
   def self.complete_schedule
     running_schedules = Schedule.find_all_by_state("running")
     now = Time.zone.now
-    logger.info("Found #{running_schedules.size} applications running")
+    debug("Found #{running_schedules.size} applications running")
     for schedule in running_schedules
       tasks = schedule.tasks_left
-      logger.info("The schedule started at #{schedule.start} has #{tasks} tasks left.")
+      debug("The schedule started at #{schedule.start} has #{tasks} tasks left.")
       if tasks == 0
         schedule.state = "completed"
         schedule.save
