@@ -109,16 +109,20 @@ class ContactsController < ApplicationController
     s = Contact.find(:all)
     stream_csv do |csv|
       csv << ["first_name","last_name","phone","email", "cell", "address1", "address2", 
-              "city", "state", "country", "post_code", "time_zone", "tags"]
+              "city", "state", "country", "post_code", "time_zone", "tags", 
+              "custom0", "custom1", "custom2", "custom3", "custom4"]
       s.each do |u|
-        csv << [u.first_name,u.last_name,u.phone,u.email, u.cell, u.address1, u.address2, u.city, u.state, u.country, u.post_code, u.time_zone, u.tags]
+        csv << [u.first_name,u.last_name,u.phone,u.email, u.cell, u.address1, u.address2, u.city, u.state, u.country, u.post_code, u.time_zone, u.tags,
+          u.custom0, u.custom1, u.custom2, u.custom3, u.custom4 ]
       end
     end
   end
   def import
    FasterCSV.parse(params[:filename]) do |info|
-      first, last, phone, email, cell, address1, address2, city, state, country, post_code, time_zone, tags = 
-      info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12]
+      first, last, phone, email, cell, address1, address2, city, state, country, post_code, time_zone, tags, 
+      custom0,  custom1, custom2, custom3, custom4,= 
+      info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], info[12],
+      info[13],  info[14],  info[15],  info[16],  info[17] 
       unless first.downcase == "first_name"  
         puts "Looking for #{first} and #{phone}"
         contact = Contact.find_by_phone(phone)
@@ -137,6 +141,11 @@ class ContactsController < ApplicationController
         contact.post_code = post_code
         contact.time_zone = time_zone
         contact.tags = tags
+        contact.custom0 = custom0
+        contact.custom1 = custom1
+        contact.custom2 = custom2
+        contact.custom3 = custom3
+        contact.custom4 = custom4
         puts "The contact is invalid" unless contact.valid?
         contact.save
       end

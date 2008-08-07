@@ -28,3 +28,19 @@
       %td=h schedule.start
       %td=h schedule.total_tasks
       %td=h schedule.tasks_left
+%h2 Log files
+= link_to "Web Server File", :action => "download_engine_log"
+= link_to "Dialer Log File", :action => "download_engine_log"
+
+%h2 Latest Dialer Engine Output
+%p
+- for line in @engine_output
+  =h line
+  %br
+  
+%h2 Latest Web Server Output
+%p
+- for line in @server_output
+  =h line
+  %br  
+  
