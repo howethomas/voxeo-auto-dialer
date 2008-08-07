@@ -147,7 +147,11 @@ class Runner < ActiveRecord::Base
       # Now, add the options...
       options = app.fields.split
       for o in options do
-        call_url += "&#{o}=#{contact.send(o)}"
+        data = contact.send(o)
+        if data and data.class == String
+          data.strip!
+        end
+        call_url += "&#{o}=#{data}"
       end
     end
     
