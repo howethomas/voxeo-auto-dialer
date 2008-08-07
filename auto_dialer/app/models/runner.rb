@@ -45,7 +45,14 @@ class Runner < ActiveRecord::Base
         sleep 10
       end
     rescue Exception => e
-      debug("Caught an exception! "+ e.backtrace.join("\n"))
+      debug("Caught an exception! " + e.message + "\n" + e.backtrace.join("\n"))
+      puts "Waiting to restart in "
+      seconds = 5
+      5.times do
+         puts "#{seconds} seconds\n"
+         seconds -= 1
+         sleep 1
+       end
       retry
     end
     
@@ -140,12 +147,12 @@ class Runner < ActiveRecord::Base
       # Now, add the options...
       options = app.fields.split
       for o in options do
-        call_url += "&#{o}=#{contact.send(o).strip}"
+        call_url += "&#{o}=#{contact.send(o)}"
       end
     end
     
     if history_id
-      call_url += "&history_id=#{history_id.strip}"
+      call_url += "&history_id=#{history_id}"
     end
     logger.info("Sending call to #{call_url}")
     unless option.mock
