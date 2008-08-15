@@ -9,9 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080804121205) do
+ActiveRecord::Schema.define(:version => 20080807125605) do
 
-  create_table "Apps", :force => true do |t|
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "apps", :force => true do |t|
     t.string   "name"
     t.string   "wait_wav"
     t.string   "app_human"
@@ -23,12 +29,6 @@ ActiveRecord::Schema.define(:version => 20080804121205) do
     t.string   "app_beep"
     t.string   "start_url"
     t.string   "fields"
-  end
-
-  create_table "accounts", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "contacts", :force => true do |t|
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(:version => 20080804121205) do
     t.string   "tags"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "custom0"
+    t.string   "custom1"
+    t.string   "custom2"
+    t.string   "custom3"
+    t.string   "custom4"
   end
 
   create_table "contacts_groups", :id => false, :force => true do |t|
