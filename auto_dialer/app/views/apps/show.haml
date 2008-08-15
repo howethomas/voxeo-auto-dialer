@@ -25,6 +25,10 @@
 %p 
   %b Cals Per Minute
   =h @app.calls_per_minute
-  
+
+%p 
+  %b Fields to send 
+  =h @app.fields
+
 = link_to 'Edit', edit_app_path(@app)
 = link_to 'Back', apps_path
