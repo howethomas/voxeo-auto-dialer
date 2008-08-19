@@ -48,8 +48,7 @@ Once the environment is setup, you can finish it up with the following commands:
 	host: localhost
 	---------------------------------------------------------------------------
 
-	rake db:reset
-	rake db:migrate
+   rake db:schema:load
 	./script/runner Utility.setup_options
 	./script/server -p 80 -d
 	nohup ./script/runner Runner.do_loop &
