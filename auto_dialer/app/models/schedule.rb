@@ -5,7 +5,7 @@ class Schedule < ActiveRecord::Base
   validates_presence_of :start, :on => :create, :message => "can't be blank"
   validates_presence_of :app_id, :on => :save, :message => "can't be blank" 
   validates_each :start, :allow_nil => true do |model, attr, value|
-     if value > Time.zone.now
+     if value < Time.zone.now
        model.errors.add(attr, "You can't schedule something in the past")
      end
    end

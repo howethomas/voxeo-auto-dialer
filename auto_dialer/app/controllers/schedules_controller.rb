@@ -77,6 +77,7 @@ class SchedulesController < ApplicationController
         format.html { redirect_to(schedule_path(@schedule)) }
         format.xml  { head :ok }
       else
+        @apps = App.find(:all)
         format.html { render :action => "edit" }
         format.xml  { render :xml => @schedule.errors, :status => :unprocessable_entity }
       end

@@ -34,13 +34,15 @@
 
 %h2 Latest Dialer Engine Output
 %p
-- for line in @engine_output
-  =h line
-  %br
+- unless @engine_output.blank?
+  - for line in @engine_output
+    =h line
+    %br
   
 %h2 Latest Web Server Output
 %p
-- for line in @server_output
-  =h line
-  %br  
+- unless @server_output.blank?
+  - for line in @server_output
+    =h line
+    %br  
   
