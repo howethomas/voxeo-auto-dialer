@@ -137,7 +137,7 @@ class Runner < ActiveRecord::Base
     option = Option.first
         
     # We need to build the URL.  First, the base is always the same...
-    call_url = CGI.escape"#{app.start_url}&numberToDial=tel:#{phone.strip}"
+    call_url = "#{app.start_url}&numberToDial=tel:#{phone.strip}"
     call_url += "&humanApp=#{app.app_human.strip}" if app.app_human
     call_url += "&machineApp=#{app.app_machine.strip}" if app.app_machine
     call_url += "&beepApp=#{app.app_beep.strip}" if app.app_beep
