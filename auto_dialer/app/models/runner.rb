@@ -137,11 +137,11 @@ class Runner < ActiveRecord::Base
     option = Option.first
         
     # We need to build the URL.  First, the base is always the same...
-    call_url = "#{app.start_url}&numberToDial=tel:#{phone.strip}"
-    call_url += "&humanApp=#{app.app_human.strip}" if app.app_human
-    call_url += "&machineApp=#{app.app_machine.strip}" if app.app_machine
-    call_url += "&beepApp=#{app.app_beep.strip}" if app.app_beep
-    call_url += "&waitWav=#{app.wait_wav.strip}" if app.wait_wav
+    call_url = "#{URI.escape(app.start_url)}&numberToDial=tel:#{URI.escape(phone.strip)}"
+    call_url += "&humanApp=#{URI.escape(app.app_human.strip)}" if app.app_human
+    call_url += "&machineApp=#{URI.escape(app.app_machine.strip)}" if app.app_machine
+    call_url += "&beepApp=#{URI.escape(app.app_beep.strip)}" if app.app_beep
+    call_url += "&waitWav=#{URI.escape(app.wait_wav.strip)}" if app.wait_wav
     
     if contact
       # Now, add the options...
