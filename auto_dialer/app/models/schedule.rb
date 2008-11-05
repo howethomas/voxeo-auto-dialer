@@ -18,4 +18,11 @@ class Schedule < ActiveRecord::Base
     Task.find(:all, :conditions => ["schedule_id = ? and completed = 'f'", self.id]).size
   end
   
+  def before_destroy
+    puts "Destroying the schedule"
+    tasks = Task.find_all_by_schedule_id(self.id)
+    if tasks
+      tasks.each {|t| t.destroy}
+    end
+  end
 end

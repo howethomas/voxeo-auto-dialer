@@ -79,16 +79,19 @@ class Runner < ActiveRecord::Base
         
         # Get the tags from teh schedule, and find any contact that has these tags.
         # If the tags are null, then take all the contacts.
-        tags = schedule.tags
+        tags = schedule.tags.split
         if tags.nil? || tags.empty?
           recipients = Contact.find(:all)
         else
-          recipients = Array.new
-          for tag in tags.split do
-            recipients += Contact.find(:all, :conditions => ["tags like ?", "%#{tag}%"])
-          end
-          # We might have picked the same contact twice. All we need is one.
-          recipients.uniq!
+          all_contacts = Contact.find(:all)
+          recipients = all_contacts.find_all { |c|
+            intersection = c.tags.split & tags
+            if intersection.length > 0 then
+              true
+            else
+              false
+            end
+          }
         end
         
         # Now, schedule a call for each of these contacts.
@@ -151,7 +154,7 @@ class Runner < ActiveRecord::Base
         if data and data.class == String
           data.strip!
         end
-        call_url += "&#{o}=#{data}"
+        call_url += "&#{o}=#{URI.escape(data.strip)}"
       end
     end
     
