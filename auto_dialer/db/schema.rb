@@ -11,13 +11,7 @@
 
 ActiveRecord::Schema.define(:version => 20080807125605) do
 
-  create_table "accounts", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "apps", :force => true do |t|
+  create_table "Apps", :force => true do |t|
     t.string   "name"
     t.string   "wait_wav"
     t.string   "app_human"
@@ -29,6 +23,12 @@ ActiveRecord::Schema.define(:version => 20080807125605) do
     t.string   "app_beep"
     t.string   "start_url"
     t.string   "fields"
+  end
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contacts", :force => true do |t|
