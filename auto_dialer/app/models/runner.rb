@@ -79,7 +79,7 @@ class Runner < ActiveRecord::Base
         
         # Get the tags from teh schedule, and find any contact that has these tags.
         # If the tags are null, then take all the contacts.
-        tags = schedule.tags.split
+        tags = schedule.tags.split unless schedule.tags.nil?
         if tags.nil? || tags.empty?
           recipients = Contact.find(:all)
         else
@@ -154,7 +154,9 @@ class Runner < ActiveRecord::Base
         if data and data.class == String
           data.strip!
         end
-        call_url += "&#{o}=#{URI.escape(data.strip)}"
+        safe_data = URI.escape(data.strip)
+        safe_data = URI.escape(safe_data, "'")
+        call_url += "&#{o}=#{safe_data}"
       end
     end
     
